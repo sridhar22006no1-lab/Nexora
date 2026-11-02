@@ -17,18 +17,18 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
   const [title, setTitle] = useState('');
   const [tagline, setTagline] = useState('');
   const [category, setCategory] = useState<StudentProject['category']>('Web Development');
-  const [authorName, setAuthorName] = useState('Sridhar');
-  const [authorCollege, setAuthorCollege] = useState('Jaya Engineering College, Chennai');
-  const [technologies, setTechnologies] = useState('React, TypeScript, Tailwind CSS, Supabase');
-  const [githubUrl, setGithubUrl] = useState('https://github.com/sridhar22006no1-lab');
-  const [liveDemoUrl, setLiveDemoUrl] = useState('https://');
+  const [authorName, setAuthorName] = useState('');
+  const [authorCollege, setAuthorCollege] = useState('');
+  const [technologies, setTechnologies] = useState('React, TypeScript, Tailwind CSS');
+  const [githubUrl, setGithubUrl] = useState('');
+  const [liveDemoUrl, setLiveDemoUrl] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !tagline || !githubUrl) return;
+    if (!title || !tagline || !githubUrl || !authorName) return;
 
     setIsSubmitting(true);
     try {
@@ -41,11 +41,11 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
         title,
         tagline,
         category,
-        authorName: authorName || 'Sridhar',
-        authorCollege: authorCollege || 'Jaya Engineering College, Chennai',
+        authorName: authorName.trim(),
+        authorCollege: authorCollege.trim() || 'Engineering Undergrad',
         technologies: techArray.length > 0 ? techArray : ['Web Tech'],
-        githubUrl,
-        liveDemoUrl: liveDemoUrl || githubUrl,
+        githubUrl: githubUrl.trim(),
+        liveDemoUrl: liveDemoUrl.trim() || githubUrl.trim(),
         featured: false,
       });
 
@@ -68,40 +68,40 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        <div className="space-y-1 mb-6">
+        <div className="space-y-1 mb-5">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 text-xs font-bold">
-            <Sparkles className="w-3 h-3" /> Proof-of-Work Verification
+            <Sparkles className="w-3 h-3" /> Community Showcase
           </div>
           <h2 className="text-xl font-extrabold text-slate-900">
-            Publish Student Project
+            Publish Your Project
           </h2>
           <p className="text-xs text-slate-500">
-            Showcase your working codebase to recruiters and fellow students.
+            Showcase your working software to fellow engineering students and tech recruiters.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+        <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
             <label className="block font-bold text-slate-700 mb-1">Project Title *</label>
             <input
               type="text"
               required
-              placeholder="e.g. AgriVision — Crop Disease Classifier"
+              placeholder="e.g. DevFlow — Developer Kanban Workspace"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-700 mb-1">One-Sentence Tagline *</label>
+            <label className="block font-bold text-slate-700 mb-1">One-Sentence Tagline / Summary *</label>
             <input
               type="text"
               required
-              placeholder="e.g. Offline MobileNetV3 model running on WebGL for real-time paddy crop blight detection"
+              placeholder="e.g. Offline-first Kanban board with drag-and-drop task automation and live sync"
               value={tagline}
               onChange={(e) => setTagline(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
             />
           </div>
 
@@ -111,36 +111,37 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as any)}
-                className="w-full p-2.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 cursor-pointer"
+                className="w-full p-2 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 cursor-pointer"
               >
                 <option value="Web Development">Web Development</option>
                 <option value="AI & ML">AI & ML</option>
                 <option value="UI/UX Design">UI/UX Design</option>
-                <option value="PWA & Algorithms">PWA & Algorithms</option>
+                <option value="PWA & Mobile">PWA & Mobile</option>
                 <option value="Cloud & DevOps">Cloud & DevOps</option>
               </select>
             </div>
 
             <div>
-              <label className="block font-bold text-slate-700 mb-1">Author Name</label>
+              <label className="block font-bold text-slate-700 mb-1">Author Name *</label>
               <input
                 type="text"
-                placeholder="Your Name"
+                required
+                placeholder="e.g. Ananya Rao"
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
               />
             </div>
           </div>
 
           <div>
-            <label className="block font-bold text-slate-700 mb-1">Institution / College</label>
+            <label className="block font-bold text-slate-700 mb-1">College / University</label>
             <input
               type="text"
-              placeholder="e.g. Jaya Engineering College, Chennai"
+              placeholder="e.g. NIT Trichy / Anna University / IIT Madras"
               value={authorCollege}
               onChange={(e) => setAuthorCollege(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
             />
           </div>
 
@@ -148,10 +149,10 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
             <label className="block font-bold text-slate-700 mb-1">Technologies (comma separated)</label>
             <input
               type="text"
-              placeholder="React, TypeScript, Tailwind CSS, Supabase"
+              placeholder="React, Next.js, TypeScript, Supabase, Tailwind"
               value={technologies}
               onChange={(e) => setTechnologies(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
             />
           </div>
 
@@ -164,7 +165,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 placeholder="https://github.com/..."
                 value={githubUrl}
                 onChange={(e) => setGithubUrl(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
               />
             </div>
 
@@ -175,7 +176,7 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
                 placeholder="https://myproject.app"
                 value={liveDemoUrl}
                 onChange={(e) => setLiveDemoUrl(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
               />
             </div>
           </div>
@@ -184,14 +185,14 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-colors shadow-sm cursor-pointer disabled:opacity-50"
+              className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-colors shadow-sm cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? 'Publishing...' : 'Publish to Showcase'}
             </button>

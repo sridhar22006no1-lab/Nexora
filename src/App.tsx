@@ -4,12 +4,11 @@ import { Footer } from './components/Footer';
 import { HomeView } from './components/HomeView';
 import { JobsView } from './components/JobsView';
 import { ProjectsView } from './components/ProjectsView';
-import { PortfolioView } from './components/PortfolioView';
+import { PortfolioBuilderView } from './components/PortfolioBuilderView';
 import { CareerGuideView } from './components/CareerGuideView';
 import { AddProjectModal } from './components/AddProjectModal';
 import { SupabaseConfigModal } from './components/SupabaseConfigModal';
 import { ActiveTab, JobListing, StudentProject } from './types';
-import { initialProfile } from './lib/mockData';
 import { fetchProjects, fetchJobs, checkSupabaseConnection } from './lib/supabase';
 
 export function App() {
@@ -26,15 +25,15 @@ export function App() {
   const [isSupabaseModalOpen, setIsSupabaseModalOpen] = useState(false);
   const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
 
-  // Hash-based tab sync
+  // Synchronize hash with active tab for direct mobile URL linking
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (hash === 'portfolio') setActiveTab('portfolio');
+      if (hash === 'builder' || hash === 'portfolio') setActiveTab('builder');
       else if (hash === 'jobs') setActiveTab('jobs');
       else if (hash === 'projects') setActiveTab('projects');
       else if (hash === 'career-guide') setActiveTab('career-guide');
-      else if (hash === 'home') setActiveTab('home');
+      else if (hash === 'home' || hash === '') setActiveTab('home');
     };
 
     handleHash();
@@ -42,14 +41,12 @@ export function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  // Update hash when activeTab changes
   const handleTabChange = (tab: ActiveTab) => {
     setActiveTab(tab);
-    window.location.hash = tab;
+    window.location.hash = tab === 'builder' ? 'portfolio' : tab;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Initial load of Supabase connection & data
   const loadData = async () => {
     const status = await checkSupabaseConnection();
     setSupabaseStatus({
@@ -72,7 +69,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans selection:bg-indigo-500 selection:text-white">
       <Navbar
         activeTab={activeTab}
         setActiveTab={handleTabChange}
@@ -81,12 +78,11 @@ export function App() {
         onOpenAddProjectModal={() => setIsAddProjectModalOpen(true)}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
         {activeTab === 'home' && (
           <HomeView
             jobs={jobs}
             projects={projects}
-            profile={initialProfile}
             setActiveTab={handleTabChange}
             onSelectSearchQuery={(q) => setSearchQuery(q)}
           />
@@ -106,11 +102,8 @@ export function App() {
           />
         )}
 
-        {activeTab === 'portfolio' && (
-          <PortfolioView
-            profile={initialProfile}
-            projects={projects}
-          />
+        {activeTab === 'builder' && (
+          <PortfolioBuilderView />
         )}
 
         {activeTab === 'career-guide' && (

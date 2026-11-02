@@ -21,7 +21,7 @@ export interface StudentProject {
   id: string;
   title: string;
   tagline: string;
-  category: 'Web Development' | 'AI & ML' | 'UI/UX Design' | 'PWA & Algorithms' | 'Cloud & DevOps';
+  category: 'Web Development' | 'AI & ML' | 'UI/UX Design' | 'PWA & Mobile' | 'Cloud & DevOps';
   authorName: string;
   authorCollege: string;
   technologies: string[];
@@ -32,9 +32,8 @@ export interface StudentProject {
   created_at: string;
 }
 
-export interface StudentProfile {
-  id: string;
-  username: string;
+export interface PortfolioData {
+  id?: string;
   fullName: string;
   headline: string;
   institution: string;
@@ -44,11 +43,16 @@ export interface StudentProfile {
   skills: string[];
   githubUrl: string;
   linkedinUrl: string;
+  portfolioUrl?: string;
   email: string;
-  phone?: string;
   location: string;
-  is_portfolio_public: boolean;
-  avatarUrl?: string;
+  projects: {
+    title: string;
+    description: string;
+    tech: string[];
+    github: string;
+    demo: string;
+  }[];
 }
 
 export interface ContactMessage {
@@ -60,4 +64,6 @@ export interface ContactMessage {
   created_at?: string;
 }
 
-export type ActiveTab = 'home' | 'jobs' | 'projects' | 'portfolio' | 'career-guide';
+export type ContactInquiry = ContactMessage;
+
+export type ActiveTab = 'home' | 'jobs' | 'projects' | 'builder' | 'career-guide';

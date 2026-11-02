@@ -1,122 +1,145 @@
-import { JobListing, StudentProject, StudentProfile } from '../types';
+import { JobListing, StudentProject, PortfolioData } from '../types';
 
-export const initialProfile: StudentProfile = {
-  id: 'sridhar-01',
-  username: 'sridhar',
-  fullName: 'Sridhar',
-  headline: 'Full-Stack Web Developer & B.Tech IT Undergrad',
-  institution: 'Jaya Engineering College, Chennai',
-  degree: 'B.Tech Information Technology',
-  graduationYear: 2026,
-  bio: 'Driven software engineering undergrad specializing in modern TypeScript, React, Next.js, and serverless architectures. Passionate about solving real academic and student pain-points through accessible, clean, and high-performance digital products.',
-  skills: [
-    'React',
-    'Next.js 15',
-    'TypeScript',
-    'JavaScript (ES6+)',
-    'Tailwind CSS',
-    'Node.js',
-    'PostgreSQL',
-    'Prisma ORM',
-    'Supabase',
-    'SQLite',
-    'Git & GitHub',
-    'REST APIs',
-    'Docker basics',
-    'Vite'
-  ],
-  githubUrl: 'https://github.com/sridhar22006no1-lab',
-  linkedinUrl: 'https://linkedin.com/in/sridhar-it',
-  email: 'sridhar22006no1@gmail.com',
-  location: 'Chennai, Tamil Nadu, India',
-  is_portfolio_public: true,
-  avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'
-};
+export const samplePortfolios: PortfolioData[] = [
+  {
+    id: 'sample-1',
+    fullName: 'Arjun Sharma',
+    headline: 'Full-Stack Developer & Cloud Enthusiast',
+    institution: 'National Institute of Technology, Trichy',
+    degree: 'B.Tech Computer Science & Engineering',
+    graduationYear: 2026,
+    bio: 'Passionate about distributed web architectures, high-performance APIs, and intuitive user experiences. Focused on building production-grade web applications with modern TypeScript, React, and serverless databases.',
+    skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind CSS', 'Docker', 'Git'],
+    githubUrl: 'https://github.com',
+    linkedinUrl: 'https://linkedin.com',
+    email: 'arjun.tech@example.com',
+    location: 'Bengaluru, India',
+    projects: [
+      {
+        title: 'DevCollab — Real-time Code Workspace',
+        description: 'Multiplayer markdown and code editor with live syntax highlighting and presence sync using WebSockets.',
+        tech: ['React', 'TypeScript', 'WebSockets', 'Tailwind CSS'],
+        github: 'https://github.com',
+        demo: 'https://demo.devcollab.app'
+      },
+      {
+        title: 'CloudMetrics — Microservice Monitor',
+        description: 'Lightweight monitoring dashboard tracking latency, error rates, and container health with automated alerts.',
+        tech: ['Node.js', 'PostgreSQL', 'Docker', 'Chart.js'],
+        github: 'https://github.com',
+        demo: 'https://metrics-demo.app'
+      }
+    ]
+  },
+  {
+    id: 'sample-2',
+    fullName: 'Priya Narayanan',
+    headline: 'Frontend Engineer & UI/UX Specialist',
+    institution: 'Anna University (CEG), Chennai',
+    degree: 'B.Tech Information Technology',
+    graduationYear: 2026,
+    bio: 'Specializing in accessible, mobile-first design systems and fluid micro-interactions. Committed to building delightful software that passes strict WCAG AAA contrast and screen-reader accessibility standards.',
+    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Figma', 'Radix UI', 'Next.js', 'Jest'],
+    githubUrl: 'https://github.com',
+    linkedinUrl: 'https://linkedin.com',
+    email: 'priya.ui@example.com',
+    location: 'Chennai, India',
+    projects: [
+      {
+        title: 'AuraKit — Accessible Design System',
+        description: 'WCAG AAA compliant React component library with built-in dark mode and keyboard navigation tokens.',
+        tech: ['React', 'Tailwind CSS', 'Radix UI', 'Storybook'],
+        github: 'https://github.com',
+        demo: 'https://aurakit.dev'
+      }
+    ]
+  }
+];
 
 export const initialProjects: StudentProject[] = [
   {
     id: 'proj-1',
-    title: 'AU Study Hub 🎓',
-    tagline: 'Independent Academic Resource Discovery Platform for Anna University Engineering Students',
+    title: 'CodeSync — Collaborative Editor ⚡',
+    tagline: 'Multiplayer Markdown and code workspace with peer document editing and live conflict resolution',
     category: 'Web Development',
-    authorName: 'Sridhar',
-    authorCollege: 'Jaya Engineering College, Chennai',
-    technologies: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'Prisma ORM', 'SQLite', 'Zod'],
-    githubUrl: 'https://github.com/sridhar22006no1-lab/AUstudyhub',
-    liveDemoUrl: 'https://austudyhub.vercel.app',
-    stars: 18,
+    authorName: 'Arjun S.',
+    authorCollege: 'NIT Trichy',
+    technologies: ['React', 'TypeScript', 'WebSockets', 'Tailwind CSS', 'Node.js'],
+    githubUrl: 'https://github.com',
+    liveDemoUrl: 'https://codesync.demo.dev',
+    stars: 38,
     featured: true,
-    created_at: '2026-10-31T11:26:45Z'
+    created_at: '2026-10-15T14:20:00Z'
   },
   {
     id: 'proj-2',
-    title: 'Nexora Platform 🚀',
-    tagline: 'Production-ready Student Career & Verified Proof-of-Work Portfolio Ecosystem',
-    category: 'Web Development',
-    authorName: 'Sridhar',
-    authorCollege: 'Jaya Engineering College, Chennai',
-    technologies: ['React 18', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL', 'Vite 5'],
-    githubUrl: 'https://github.com/sridhar22006no1-lab/nexora-platform',
-    liveDemoUrl: 'https://nexora-portfolio.vercel.app',
-    stars: 24,
-    featured: true,
-    created_at: '2026-11-02T10:30:00Z'
-  },
-  {
-    id: 'proj-3',
-    title: 'CodeSync — Realtime Editor ⚡',
-    tagline: 'Collaborative Markdown and code editor with live syntax highlighting and multi-user preview',
-    category: 'Web Development',
-    authorName: 'Sridhar',
-    authorCollege: 'Jaya Engineering College, Chennai',
-    technologies: ['React', 'TypeScript', 'WebSockets', 'Tailwind CSS', 'Node.js'],
-    githubUrl: 'https://github.com/sridhar22006no1-lab',
-    liveDemoUrl: 'https://codesync-demo.dev',
-    stars: 12,
-    featured: false,
-    created_at: '2026-09-15T14:20:00Z'
-  },
-  {
-    id: 'proj-4',
-    title: 'MetroEase — Transit Route Planner 🚇',
-    tagline: 'Progressive Web App for offline Chennai Metro & suburban train route calculation with Dijkstra algorithm',
-    category: 'PWA & Algorithms',
-    authorName: 'Aravind K.',
-    authorCollege: 'Anna University (CEG), Chennai',
-    technologies: ['PWA', 'JavaScript', 'IndexedDB', 'Service Workers', 'CSS3'],
-    githubUrl: 'https://github.com',
-    liveDemoUrl: 'https://metroease.app',
-    stars: 9,
-    featured: false,
-    created_at: '2026-08-20T09:15:00Z'
-  },
-  {
-    id: 'proj-5',
-    title: 'AuraKit — Accessible UI System 🎨',
-    tagline: 'WCAG AAA compliant React component toolkit designed for public sector and educational portals',
-    category: 'UI/UX Design',
-    authorName: 'Priya Nair',
-    authorCollege: 'SSN College of Engineering, Chennai',
-    technologies: ['React', 'Figma', 'Tailwind CSS', 'Radix UI', 'Storybook'],
-    githubUrl: 'https://github.com',
-    liveDemoUrl: 'https://aurakit.dev',
-    stars: 31,
-    featured: false,
-    created_at: '2026-07-10T16:45:00Z'
-  },
-  {
-    id: 'proj-6',
-    title: 'AgriVision — Crop Disease Classifier 🌿',
-    tagline: 'MobileNetV3 computer vision model running on WebGL for real-time paddy crop blight detection',
+    title: 'AgriVision — Crop Disease Detector 🌿',
+    tagline: 'MobileNetV3 computer vision model running on WebGL for real-time paddy crop blight detection in low-connectivity areas',
     category: 'AI & ML',
     authorName: 'Karthik Raja',
     authorCollege: 'PSG College of Technology, Coimbatore',
     technologies: ['TensorFlow.js', 'Python', 'React', 'FastAPI', 'PyTorch'],
     githubUrl: 'https://github.com',
     liveDemoUrl: 'https://agrivision.ai',
-    stars: 45,
+    stars: 52,
     featured: true,
-    created_at: '2026-06-05T12:00:00Z'
+    created_at: '2026-09-28T12:00:00Z'
+  },
+  {
+    id: 'proj-3',
+    title: 'MetroEase — Offline Transit Route Planner 🚇',
+    tagline: 'PWA for offline suburban and metro train route calculations with optimized Dijkstra algorithm',
+    category: 'PWA & Mobile',
+    authorName: 'Divya M.',
+    authorCollege: 'Anna University (CEG), Chennai',
+    technologies: ['PWA', 'JavaScript', 'IndexedDB', 'Service Workers', 'CSS3'],
+    githubUrl: 'https://github.com',
+    liveDemoUrl: 'https://metroease.app',
+    stars: 27,
+    featured: true,
+    created_at: '2026-10-05T09:15:00Z'
+  },
+  {
+    id: 'proj-4',
+    title: 'AuraKit — Accessible UI System 🎨',
+    tagline: 'WCAG AAA compliant React component toolkit designed for public sector and educational web portals',
+    category: 'UI/UX Design',
+    authorName: 'Priya N.',
+    authorCollege: 'SSN College of Engineering, Chennai',
+    technologies: ['React', 'Figma', 'Tailwind CSS', 'Radix UI', 'Storybook'],
+    githubUrl: 'https://github.com',
+    liveDemoUrl: 'https://aurakit.dev',
+    stars: 44,
+    featured: false,
+    created_at: '2026-08-10T16:45:00Z'
+  },
+  {
+    id: 'proj-5',
+    title: 'DockerKube — Local Cluster Visualizer 🐳',
+    tagline: 'Desktop & web dashboard visualizing pod topology, resource consumption, and container status in real-time',
+    category: 'Cloud & DevOps',
+    authorName: 'Siddharth Rao',
+    authorCollege: 'BITS Pilani',
+    technologies: ['Go', 'React', 'Docker SDK', 'Kubernetes API', 'Tailwind'],
+    githubUrl: 'https://github.com',
+    liveDemoUrl: 'https://dockerkube.dev',
+    stars: 31,
+    featured: false,
+    created_at: '2026-07-22T11:00:00Z'
+  },
+  {
+    id: 'proj-6',
+    title: 'StudyResource Hub — Academic Repository 📚',
+    tagline: 'High-speed student academic repository for previous year question papers, syllabus, and unit-wise notes',
+    category: 'Web Development',
+    authorName: 'Student Community',
+    authorCollege: 'State Engineering Consortium',
+    technologies: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'Prisma ORM', 'SQLite'],
+    githubUrl: 'https://github.com',
+    liveDemoUrl: 'https://studyhub.demo.app',
+    stars: 64,
+    featured: true,
+    created_at: '2026-10-31T08:00:00Z'
   }
 ];
 
@@ -132,7 +155,7 @@ export const initialJobs: JobListing[] = [
     graduationBatch: ['2025', '2026'],
     compensation: '₹40,000 / month',
     requiredSkills: ['React', 'TypeScript', 'Tailwind CSS', 'Git', 'REST APIs'],
-    description: 'Join our customer experience web team building high-traffic, ultra-responsive web interfaces with strict accessibility standards.',
+    description: 'Join our customer experience web team building high-traffic, ultra-responsive web interfaces with strict performance standards.',
     applyUrl: 'https://www.zomato.com/careers',
     verified: true,
     verifiedDate: 'Nov 2026',
@@ -177,7 +200,7 @@ export const initialJobs: JobListing[] = [
   },
   {
     id: 'job-4',
-    title: 'Junior Web Developer (Next.js & Supabase)',
+    title: 'Junior Web Developer (React & Cloud)',
     companyName: 'Freshworks Inc.',
     companyLogo: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=120&q=80',
     location: 'Chennai / Bengaluru (Hybrid)',
@@ -186,7 +209,7 @@ export const initialJobs: JobListing[] = [
     graduationBatch: ['2025', '2026'],
     compensation: '₹7.0 - 9.5 LPA',
     requiredSkills: ['React', 'Next.js', 'TypeScript', 'PostgreSQL', 'Tailwind CSS'],
-    description: 'Collaborate with global product design teams building customer service and CRM interfaces with AI-enhanced workflows.',
+    description: 'Collaborate with product design teams building customer service and CRM interfaces with AI-enhanced workflows.',
     applyUrl: 'https://www.freshworks.com/careers',
     verified: true,
     verifiedDate: 'Nov 2026',
@@ -214,15 +237,15 @@ export const initialJobs: JobListing[] = [
   {
     id: 'job-6',
     title: 'Associate Software Engineer (Campus 2026)',
-    companyName: 'TCS Digital / Cognizant GenC Next',
+    companyName: 'TCS Digital / Cognizant GenC',
     companyLogo: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=120&q=80',
-    location: 'Chennai / Coimbatore / Hyderabad',
+    location: 'Chennai / Hyderabad / Pune',
     workplaceType: 'On-site',
     employmentType: 'Full-time',
     graduationBatch: ['2026'],
     compensation: '₹7.0 - 9.0 LPA',
     requiredSkills: ['Java / Python', 'SQL', 'Cloud Fundamentals', 'Git', 'Agile'],
-    description: 'Elite digital development cohort focused on cloud transformation, microservices, and AI-driven enterprise automation.',
+    description: 'Elite digital development cohort focused on cloud transformation, microservices, and modern enterprise software engineering.',
     applyUrl: 'https://www.tcs.com/careers',
     verified: true,
     verifiedDate: 'Nov 2026',
