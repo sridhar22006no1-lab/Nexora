@@ -3,16 +3,16 @@ import { JobListing, StudentProject, PortfolioData } from '../types';
 export const samplePortfolios: PortfolioData[] = [
   {
     id: 'sample-1',
-    fullName: 'Arjun Sharma',
+    fullName: 'Student Portfolio',
     headline: 'Full-Stack Developer & Cloud Enthusiast',
-    institution: 'National Institute of Technology, Trichy',
+    institution: 'National Institute of Technology',
     degree: 'B.Tech Computer Science & Engineering',
     graduationYear: 2026,
     bio: 'Passionate about distributed web architectures, high-performance APIs, and intuitive user experiences. Focused on building production-grade web applications with modern TypeScript, React, and serverless databases.',
     skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind CSS', 'Docker', 'Git'],
     githubUrl: 'https://github.com',
     linkedinUrl: 'https://linkedin.com',
-    email: 'arjun.tech@example.com',
+    email: 'student.portfolio@example.com',
     location: 'Bengaluru, India',
     projects: [
       {
@@ -62,7 +62,7 @@ export const initialProjects: StudentProject[] = [
     title: 'CodeSync — Collaborative Editor ⚡',
     tagline: 'Multiplayer Markdown and code workspace with peer document editing and live conflict resolution',
     category: 'Web Development',
-    authorName: 'Arjun S.',
+    authorName: 'Student Portfolio',
     authorCollege: 'NIT Trichy',
     technologies: ['React', 'TypeScript', 'WebSockets', 'Tailwind CSS', 'Node.js'],
     githubUrl: 'https://github.com',

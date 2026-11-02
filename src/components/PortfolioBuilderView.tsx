@@ -4,31 +4,109 @@ import {
   Eye, 
   Edit3, 
   Share2, 
-  Download, 
-  CheckCircle2, 
-  Github, 
-  Linkedin, 
-  ExternalLink, 
+  Save, 
   Plus, 
   Trash2, 
   GraduationCap, 
   MapPin, 
-  Award,
-  Layers,
+  Github, 
+  Linkedin, 
   ArrowUpRight,
-  Save,
-  Copy,
-  Smartphone
+  User,
+  RotateCcw
 } from 'lucide-react';
 import { PortfolioData } from '../types';
-import { samplePortfolios } from '../lib/mockData';
+
+const roleTemplates: { name: string; data: PortfolioData }[] = [
+  {
+    name: 'Full-Stack Developer',
+    data: {
+      fullName: 'Student Portfolio',
+      headline: 'Full-Stack Web Developer & Cloud Engineer',
+      institution: '',
+      degree: 'B.Tech / B.E. / MCA',
+      graduationYear: 2026,
+      bio: 'Focused on building reliable, scalable web applications with modern TypeScript, React, and serverless databases. Passionate about clean architecture, responsive UI, and robust APIs.',
+      skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind CSS', 'Docker', 'Git'],
+      githubUrl: 'https://github.com',
+      linkedinUrl: 'https://linkedin.com',
+      email: '',
+      location: 'India',
+      projects: [
+        {
+          title: 'CloudSync — Realtime Workspace',
+          description: 'Multiplayer markdown and code editor with live syntax highlighting and conflict resolution.',
+          tech: ['React', 'TypeScript', 'WebSockets', 'Tailwind CSS'],
+          github: 'https://github.com',
+          demo: 'https://demo.app'
+        },
+        {
+          title: 'MetricsFlow — Microservice Dashboard',
+          description: 'Performance monitoring dashboard tracking API latency, error rates, and database queries.',
+          tech: ['Node.js', 'PostgreSQL', 'Docker', 'Chart.js'],
+          github: 'https://github.com',
+          demo: 'https://demo.app'
+        }
+      ]
+    }
+  },
+  {
+    name: 'Frontend & UI Specialist',
+    data: {
+      fullName: 'Student Portfolio',
+      headline: 'Frontend Engineer & UI/UX Specialist',
+      institution: '',
+      degree: 'B.Tech / B.E. in Technology',
+      graduationYear: 2026,
+      bio: 'Specializing in accessible, mobile-first design systems and fluid micro-interactions. Committed to building delightful software that passes strict WCAG accessibility standards.',
+      skills: ['React', 'TypeScript', 'Tailwind CSS', 'Figma', 'Radix UI', 'Next.js', 'REST APIs'],
+      githubUrl: 'https://github.com',
+      linkedinUrl: 'https://linkedin.com',
+      email: '',
+      location: 'India',
+      projects: [
+        {
+          title: 'DesignKit — Accessible UI System',
+          description: 'WCAG AAA compliant component toolkit with built-in dark mode and keyboard navigation tokens.',
+          tech: ['React', 'Tailwind CSS', 'Radix UI', 'Storybook'],
+          github: 'https://github.com',
+          demo: 'https://demo.app'
+        }
+      ]
+    }
+  },
+  {
+    name: 'AI / Data Engineer',
+    data: {
+      fullName: 'Student Portfolio',
+      headline: 'AI & Machine Learning Undergrad',
+      institution: '',
+      degree: 'B.Tech AI & Data Science',
+      graduationYear: 2026,
+      bio: 'Building intelligent data pipelines and deploying edge ML models for computer vision and NLP applications.',
+      skills: ['Python', 'TensorFlow', 'FastAPI', 'PyTorch', 'React', 'SQL', 'Docker'],
+      githubUrl: 'https://github.com',
+      linkedinUrl: 'https://linkedin.com',
+      email: '',
+      location: 'India',
+      projects: [
+        {
+          title: 'VisionCore — Edge Object Classifier',
+          description: 'Lightweight MobileNet model running in-browser with WebGL acceleration for real-time classification.',
+          tech: ['Python', 'TensorFlow.js', 'FastAPI', 'React'],
+          github: 'https://github.com',
+          demo: 'https://demo.app'
+        }
+      ]
+    }
+  }
+];
 
 export const PortfolioBuilderView: React.FC = () => {
-  const [mobileMode, setMobileMode] = useState<'edit' | 'preview'>('preview');
+  const [mobileMode, setMobileMode] = useState<'edit' | 'preview'>('edit');
   const [copiedLink, setCopiedLink] = useState(false);
   const [savedStatus, setSavedStatus] = useState<string | null>(null);
 
-  // State for user's portfolio data
   const [portfolio, setPortfolio] = useState<PortfolioData>(() => {
     try {
       const saved = localStorage.getItem('nexora_user_portfolio');
@@ -36,20 +114,18 @@ export const PortfolioBuilderView: React.FC = () => {
     } catch (e) {
       // ignore
     }
-    return samplePortfolios[0];
+    return roleTemplates[0].data;
   });
 
   const [skillInput, setSkillInput] = useState('');
 
-  // Calculate dynamic recruiter readiness score
   const calculateStrength = () => {
-    let score = 20; // base score
-    if (portfolio.fullName.trim()) score += 15;
+    let score = 20;
+    if (portfolio.fullName.trim()) score += 20;
     if (portfolio.headline.trim()) score += 15;
-    if (portfolio.institution.trim()) score += 10;
+    if (portfolio.institution.trim()) score += 15;
     if (portfolio.skills.length >= 4) score += 15;
     if (portfolio.projects.length >= 1) score += 15;
-    if (portfolio.githubUrl.trim() || portfolio.linkedinUrl.trim()) score += 10;
     return Math.min(score, 100);
   };
 
@@ -82,7 +158,7 @@ export const PortfolioBuilderView: React.FC = () => {
         ...portfolio.projects,
         {
           title: 'New Showcase Project',
-          description: 'A brief 1-2 sentence description of the architecture and problem solved.',
+          description: 'A brief description of what this project does and the technology stack used.',
           tech: ['React', 'TypeScript', 'Tailwind'],
           github: 'https://github.com',
           demo: 'https://demo.app'
@@ -107,24 +183,48 @@ export const PortfolioBuilderView: React.FC = () => {
   const handleSave = () => {
     try {
       localStorage.setItem('nexora_user_portfolio', JSON.stringify(portfolio));
-      setSavedStatus('Portfolio saved successfully!');
-      setTimeout(() => setSavedStatus(null), 3000);
+      setSavedStatus('Saved!');
+      setTimeout(() => setSavedStatus(null), 2500);
     } catch (e) {
       setSavedStatus('Saved locally!');
     }
   };
 
   const handleCopyShareLink = () => {
-    const slug = portfolio.fullName.toLowerCase().replace(/[^a-z0-9]/g, '-');
-    const shareUrl = `${window.location.origin}#portfolio?u=${slug || 'developer'}`;
+    const slug = portfolio.fullName ? portfolio.fullName.toLowerCase().replace(/[^a-z0-9]/g, '-') : 'developer';
+    const shareUrl = `${window.location.origin}#portfolio?u=${slug}`;
     navigator.clipboard.writeText(shareUrl);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2500);
   };
 
-  const loadPreset = (preset: PortfolioData) => {
-    setPortfolio(preset);
+  const loadRoleTemplate = (templateData: PortfolioData) => {
+    setPortfolio({
+      ...templateData,
+      fullName: portfolio.fullName || '' // preserve user's typed name if any
+    });
   };
+
+  const resetForm = () => {
+    setPortfolio({
+      fullName: '',
+      headline: '',
+      institution: '',
+      degree: '',
+      graduationYear: 2026,
+      bio: '',
+      skills: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Git'],
+      githubUrl: '',
+      linkedinUrl: '',
+      email: '',
+      location: '',
+      projects: []
+    });
+  };
+
+  const displayInitials = portfolio.fullName.trim()
+    ? portfolio.fullName.trim().split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
+    : 'NX';
 
   return (
     <div className="space-y-6 py-2">
@@ -133,24 +233,32 @@ export const PortfolioBuilderView: React.FC = () => {
         <div className="space-y-2 max-w-2xl">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-xs font-bold text-indigo-700">
             <Sparkles className="w-3.5 h-3.5" />
-            Nexora Student Portfolio Generator
+            Nexora Developer Portfolio Creator
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Create Your Public Developer Portfolio
+            Build Your Developer Portfolio
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-            Generate an interactive, mobile-optimized proof-of-work portfolio in minutes. Showcase your working software, GitHub repositories, and live demos directly to tech recruiters.
+            Enter your details below to instantly generate a clean, mobile-optimized developer portfolio with a shareable public link.
           </p>
         </div>
 
         {/* Action Controls */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0">
           <button
+            onClick={resetForm}
+            className="px-3.5 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+            title="Clear all fields"
+          >
+            <RotateCcw className="w-3.5 h-3.5" /> Reset
+          </button>
+
+          <button
             onClick={handleSave}
             className="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
           >
             <Save className="w-4 h-4 text-slate-500" />
-            {savedStatus ? 'Saved!' : 'Save Portfolio'}
+            {savedStatus ? 'Saved!' : 'Save Progress'}
           </button>
 
           <button
@@ -163,17 +271,17 @@ export const PortfolioBuilderView: React.FC = () => {
         </div>
       </div>
 
-      {/* Preset Switcher & Mobile Mode Toggle */}
+      {/* Preset Role Switcher & Mobile View Toggle */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-100 p-2 rounded-2xl border border-slate-200/80">
-        <div className="flex items-center gap-2 text-xs w-full sm:w-auto">
-          <span className="text-slate-500 font-bold px-2">Sample Templates:</span>
-          {samplePortfolios.map((preset, idx) => (
+        <div className="flex items-center gap-1.5 text-xs w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
+          <span className="text-slate-500 font-bold px-2 whitespace-nowrap">Load Role Presets:</span>
+          {roleTemplates.map((role) => (
             <button
-              key={preset.id}
-              onClick={() => loadPreset(preset)}
-              className="px-3 py-1.5 rounded-xl bg-white text-slate-700 hover:text-indigo-600 font-semibold border border-slate-200 text-xs shadow-2xs transition-colors cursor-pointer"
+              key={role.name}
+              onClick={() => loadRoleTemplate(role.data)}
+              className="px-3 py-1.5 rounded-xl bg-white text-slate-700 hover:text-indigo-600 font-semibold border border-slate-200 text-xs shadow-2xs transition-colors cursor-pointer whitespace-nowrap"
             >
-              Preset {idx + 1}: {preset.fullName}
+              {role.name}
             </button>
           ))}
         </div>
@@ -206,20 +314,19 @@ export const PortfolioBuilderView: React.FC = () => {
           <div className="bg-white rounded-3xl p-6 border border-slate-200/90 shadow-sm space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <h3 className="font-bold text-base text-slate-900 flex items-center gap-2">
-                <Edit3 className="w-4 h-4 text-indigo-600" /> Portfolio Details
+                <Edit3 className="w-4 h-4 text-indigo-600" /> Enter Your Profile Details
               </h3>
               <span className="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">
-                Live Sync
+                Live Preview
               </span>
             </div>
 
-            {/* Basic Info */}
             <div className="space-y-3.5 text-xs">
               <div>
                 <label className="block font-bold text-slate-700 mb-1">Your Full Name *</label>
                 <input
                   type="text"
-                  placeholder="e.g. Arjun Sharma"
+                  placeholder="e.g. Student Portfolio"
                   value={portfolio.fullName}
                   onChange={(e) => setPortfolio({ ...portfolio, fullName: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -227,7 +334,7 @@ export const PortfolioBuilderView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Professional Headline / Role *</label>
+                <label className="block font-bold text-slate-700 mb-1">Role / Headline *</label>
                 <input
                   type="text"
                   placeholder="e.g. Full-Stack Developer & Cloud Undergrad"
@@ -242,7 +349,7 @@ export const PortfolioBuilderView: React.FC = () => {
                   <label className="block font-bold text-slate-700 mb-1">Degree / Branch</label>
                   <input
                     type="text"
-                    placeholder="B.Tech Computer Science"
+                    placeholder="e.g. B.Tech Computer Science"
                     value={portfolio.degree}
                     onChange={(e) => setPortfolio({ ...portfolio, degree: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -264,7 +371,7 @@ export const PortfolioBuilderView: React.FC = () => {
                 <label className="block font-bold text-slate-700 mb-1">College / University</label>
                 <input
                   type="text"
-                  placeholder="e.g. National Institute of Technology"
+                  placeholder="e.g. Engineering Institute / University"
                   value={portfolio.institution}
                   onChange={(e) => setPortfolio({ ...portfolio, institution: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -272,10 +379,10 @@ export const PortfolioBuilderView: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-bold text-slate-700 mb-1">Location</label>
+                <label className="block font-bold text-slate-700 mb-1">Location / City</label>
                 <input
                   type="text"
-                  placeholder="e.g. Chennai, Tamil Nadu, India"
+                  placeholder="e.g. Chennai / Bengaluru / Hyderabad, India"
                   value={portfolio.location}
                   onChange={(e) => setPortfolio({ ...portfolio, location: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -286,7 +393,7 @@ export const PortfolioBuilderView: React.FC = () => {
                 <label className="block font-bold text-slate-700 mb-1">About Me (Bio)</label>
                 <textarea
                   rows={3}
-                  placeholder="Brief summary of your technical focus and engineering passion..."
+                  placeholder="Write a brief summary of what you build and your tech interests..."
                   value={portfolio.bio}
                   onChange={(e) => setPortfolio({ ...portfolio, bio: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none"
@@ -339,7 +446,7 @@ export const PortfolioBuilderView: React.FC = () => {
                   <label className="block font-bold text-slate-700 mb-1">GitHub URL</label>
                   <input
                     type="url"
-                    placeholder="https://github.com/username"
+                    placeholder="https://github.com/your-username"
                     value={portfolio.githubUrl}
                     onChange={(e) => setPortfolio({ ...portfolio, githubUrl: e.target.value })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs"
@@ -349,7 +456,7 @@ export const PortfolioBuilderView: React.FC = () => {
                   <label className="block font-bold text-slate-700 mb-1">LinkedIn URL</label>
                   <input
                     type="url"
-                    placeholder="https://linkedin.com/in/username"
+                    placeholder="https://linkedin.com/in/your-profile"
                     value={portfolio.linkedinUrl}
                     onChange={(e) => setPortfolio({ ...portfolio, linkedinUrl: e.target.value })}
                     className="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs"
@@ -397,7 +504,7 @@ export const PortfolioBuilderView: React.FC = () => {
                     <div>
                       <textarea
                         rows={2}
-                        placeholder="Description..."
+                        placeholder="Project description & problem solved..."
                         value={proj.description}
                         onChange={(e) => handleProjectChange(idx, 'description', e.target.value)}
                         className="w-full text-slate-600 bg-transparent border-b border-slate-200 focus:outline-none resize-none text-[11px]"
@@ -413,7 +520,7 @@ export const PortfolioBuilderView: React.FC = () => {
                       />
                       <input
                         type="url"
-                        placeholder="Demo URL"
+                        placeholder="Live Demo URL"
                         value={proj.demo}
                         onChange={(e) => handleProjectChange(idx, 'demo', e.target.value)}
                         className="w-full px-2 py-1 bg-white rounded border border-slate-200"
@@ -433,15 +540,14 @@ export const PortfolioBuilderView: React.FC = () => {
             <div className="bg-slate-900 text-white px-4 py-3 flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span className="font-mono text-slate-300">Public Live Preview</span>
+                <span className="font-mono text-slate-300">Live Preview Output</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[11px] text-slate-400 hidden sm:inline">Mobile & Desktop Ready</span>
                 <button
                   onClick={handleCopyShareLink}
                   className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center gap-1 cursor-pointer"
                 >
-                  <Share2 className="w-3 h-3" /> Share
+                  <Share2 className="w-3 h-3" /> Share URL
                 </button>
               </div>
             </div>
@@ -455,30 +561,30 @@ export const PortfolioBuilderView: React.FC = () => {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pt-1">
                   <div className="flex items-start sm:items-center gap-4">
                     <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-indigo-600 to-teal-600 text-white font-extrabold text-2xl flex items-center justify-center shadow-md shrink-0">
-                      {portfolio.fullName.slice(0, 2).toUpperCase() || 'DV'}
+                      {displayInitials}
                     </div>
 
                     <div className="space-y-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                          {portfolio.fullName || 'Candidate Name'}
+                          {portfolio.fullName || 'Your Name'}
                         </h2>
                         <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold border border-indigo-100">
                           Batch {portfolio.graduationYear}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-100">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Available for Hire
                         </span>
                       </div>
 
                       <p className="text-xs sm:text-sm font-semibold text-indigo-600">
-                        {portfolio.headline || 'Full Stack Engineer'}
+                        {portfolio.headline || 'Your Professional Role / Headline'}
                       </p>
 
                       <div className="text-xs text-slate-500 flex flex-wrap gap-x-3 gap-y-1 pt-0.5">
                         <span className="flex items-center gap-1">
                           <GraduationCap className="w-3.5 h-3.5 text-slate-400" />
-                          {portfolio.degree} • {portfolio.institution}
+                          {portfolio.degree || 'Degree'} {portfolio.institution ? `• ${portfolio.institution}` : ''}
                         </span>
                         {portfolio.location && (
                           <span className="flex items-center gap-1">
@@ -515,9 +621,13 @@ export const PortfolioBuilderView: React.FC = () => {
                   </div>
                 </div>
 
-                {portfolio.bio && (
+                {portfolio.bio ? (
                   <p className="text-xs text-slate-600 mt-4 pt-3 border-t border-slate-100 leading-relaxed">
                     {portfolio.bio}
+                  </p>
+                ) : (
+                  <p className="text-xs text-slate-400 italic mt-4 pt-3 border-t border-slate-100">
+                    Write your bio in the editor to display your technical passions here...
                   </p>
                 )}
               </div>
@@ -553,7 +663,7 @@ export const PortfolioBuilderView: React.FC = () => {
               {portfolio.skills.length > 0 && (
                 <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-2.5">
                   <h4 className="font-bold text-xs text-slate-900 uppercase tracking-wider">
-                    Verified Technical Stack
+                    Technical Stack
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {portfolio.skills.map((skill) => (
@@ -571,54 +681,60 @@ export const PortfolioBuilderView: React.FC = () => {
               {/* Showcase Projects */}
               <div className="space-y-4">
                 <h4 className="font-bold text-sm text-slate-900">
-                  Featured Proof-of-Work Projects
+                  Proof-of-Work Projects
                 </h4>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {portfolio.projects.map((proj, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-indigo-300 transition-all"
-                    >
-                      <div className="space-y-2">
-                        <h5 className="font-bold text-slate-900 text-sm">{proj.title}</h5>
-                        <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
-                          {proj.description}
-                        </p>
-                        <div className="flex flex-wrap gap-1 pt-1">
-                          {proj.tech.map((t) => (
-                            <span key={t} className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-medium">
-                              {t}
-                            </span>
-                          ))}
+                {portfolio.projects.length === 0 ? (
+                  <div className="p-6 text-center border border-dashed border-slate-300 rounded-2xl text-xs text-slate-500">
+                    Click "+ Add Project" in the editor to showcase your work here.
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {portfolio.projects.map((proj, idx) => (
+                      <div
+                        key={idx}
+                        className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between hover:border-indigo-300 transition-all"
+                      >
+                        <div className="space-y-2">
+                          <h5 className="font-bold text-slate-900 text-sm">{proj.title || 'Project Title'}</h5>
+                          <p className="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                            {proj.description || 'Project description...'}
+                          </p>
+                          <div className="flex flex-wrap gap-1 pt-1">
+                            {proj.tech.map((t) => (
+                              <span key={t} className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-medium">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                          {proj.github && (
+                            <a
+                              href={proj.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-bold text-slate-700 hover:text-slate-900 flex items-center gap-1"
+                            >
+                              <Github className="w-3.5 h-3.5" /> Code
+                            </a>
+                          )}
+                          {proj.demo && (
+                            <a
+                              href={proj.demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-0.5"
+                            >
+                              Live Demo <ArrowUpRight className="w-3.5 h-3.5" />
+                            </a>
+                          )}
                         </div>
                       </div>
-
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                        {proj.github && (
-                          <a
-                            href={proj.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-bold text-slate-700 hover:text-slate-900 flex items-center gap-1"
-                          >
-                            <Github className="w-3.5 h-3.5" /> Code
-                          </a>
-                        )}
-                        {proj.demo && (
-                          <a
-                            href={proj.demo}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-0.5"
-                          >
-                            Live Demo <ArrowUpRight className="w-3.5 h-3.5" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
