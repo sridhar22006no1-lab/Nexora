@@ -4,11 +4,20 @@
 
 @layer base {
   body {
-    background-color: #f8fafc;
-    color: #0f172a;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* Default Dark Mode Styling */
+  html.dark body {
+    background-color: #090d16;
+    color: #f1f5f9;
+  }
+
+  html.light body {
+    background-color: #f8fafc;
+    color: #0f172a;
   }
 }
 
@@ -19,24 +28,41 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+.light ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 9999px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+/* Nexora Card Hover & Glow */
+.nexora-glass {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Nexora Card Hover Lift */
-.nexora-card {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+.nexora-glow {
+  box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.2);
 }
 
-.nexora-card:hover {
+.nexora-card-interactive {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nexora-card-interactive:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px -8px rgba(79, 70, 229, 0.12);
+  box-shadow: 0 12px 28px -8px rgba(99, 102, 241, 0.25);
+  border-color: rgba(139, 92, 246, 0.4);
 }

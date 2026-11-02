@@ -1,4 +1,4 @@
-import { JobListing, StudentProject, PortfolioData } from '../types';
+import { JobListing, StudentProject, PortfolioData, StudyNote, StudyTask, ExamMilestone } from '../types';
 
 export const samplePortfolios: PortfolioData[] = [
   {
@@ -251,5 +251,182 @@ export const initialJobs: JobListing[] = [
     verifiedDate: 'Nov 2026',
     status: 'published',
     created_at: '2026-10-29T11:00:00Z'
+  }
+];
+
+export const initialStudyNotes: StudyNote[] = [
+  {
+    id: 'note-1',
+    userId: 'demo-student-01',
+    title: 'Operating Systems: Process vs Thread & The 4 Coffman Deadlock Conditions',
+    subject: 'Operating Systems',
+    unit: 'Unit 3: Synchronization & Concurrency',
+    content: `### Process vs Thread Architecture
+- **Process**: Independent execution unit with private virtual memory address space, file descriptors, and security context. Context switching incurs high overhead (page table invalidation / TLB flush).
+- **Thread**: Lightweight execution entity within a process. Shares heap, global variables, and open files with peer threads, but possesses its own program counter, registers, and call stack.
+
+### 4 Coffman Deadlock Conditions (Must occur simultaneously):
+1. **Mutual Exclusion**: At least one resource must be held in a non-shareable mode.
+2. **Hold and Wait**: A process holds at least one resource and requests additional resources held by other processes.
+3. **No Preemption**: Resources cannot be forcibly expropriated; they can only be released voluntarily by the holding process.
+4. **Circular Wait**: A closed chain of processes exists such that each process holds at least one resource needed by the next.
+
+\`\`\`c
+// Classic Mutex Lock Pattern in POSIX C
+pthread_mutex_t lock;
+pthread_mutex_init(&lock, NULL);
+
+pthread_mutex_lock(&lock);
+// Critical Section Access
+shared_counter++;
+pthread_mutex_unlock(&lock);
+\`\`\`
+
+> **Exam Tip**: Breaking *Circular Wait* by imposing a global resource hierarchy ordering is the most practical deadlock prevention technique in commercial OS kernels.`,
+    tags: ['Deadlocks', 'Concurrency', 'OS', 'Exam Prep'],
+    isPinned: true,
+    colorTheme: 'indigo',
+    created_at: '2026-11-01T09:30:00Z',
+    updated_at: '2026-11-02T10:15:00Z'
+  },
+  {
+    id: 'note-2',
+    userId: 'demo-student-01',
+    title: 'Master Theorem for Divide & Conquer & 0/1 Knapsack Recurrence',
+    subject: 'Data Structures & Algos',
+    unit: 'Unit 2: Asymptotic Analysis & DP Patterns',
+    content: `### Master Theorem Quick Reference
+For recurrences of the form:
+\`\`\`
+T(n) = a * T(n / b) + O(n^d)
+\`\`\`
+Where:
+- $a \\ge 1$ (number of subproblems)
+- $b > 1$ (factor by which subproblem size decreases)
+- $d \\ge 0$ (work done outside recursive calls)
+
+1. **Case 1**: If $d < \\log_b(a) \\implies T(n) = \\Theta(n^{\\log_b a})$
+2. **Case 2**: If $d = \\log_b(a) \\implies T(n) = \\Theta(n^d \\log n)$ (e.g. Merge Sort: $a=2, b=2, d=1 \\implies \\Theta(n \\log n)$)
+3. **Case 3**: If $d > \\log_b(a) \\implies T(n) = \\Theta(n^d)$
+
+### 0/1 Knapsack Dynamic Programming Recurrence
+\`\`\`python
+# DP State Definition: dp[i][w] = max value using first i items with weight capacity w
+if weight[i-1] <= w:
+    dp[i][w] = max(val[i-1] + dp[i-1][w - weight[i-1]], dp[i-1][w])
+else:
+    dp[i][w] = dp[i-1][w]
+\`\`\`
+- Time Complexity: $O(N \\times W)$ (Pseudo-polynomial)
+- Space Complexity: $O(W)$ with 1D rolling array optimization.`,
+    tags: ['Algorithms', 'Master Theorem', 'DP', 'Interview Cheat Sheet'],
+    isPinned: true,
+    colorTheme: 'purple',
+    created_at: '2026-10-30T14:20:00Z',
+    updated_at: '2026-11-01T16:00:00Z'
+  },
+  {
+    id: 'note-3',
+    userId: 'demo-student-01',
+    title: 'Database Normalization Roadmap: 1NF, 2NF, 3NF & BCNF Rules',
+    subject: 'Database Systems (DBMS)',
+    unit: 'Unit 4: Relational Schema Design',
+    content: `### Purpose of Normalization
+Eliminate update anomalies, insertion anomalies, and deletion anomalies while minimizing data redundancy.
+
+### Normal Forms Hierarchy:
+- **1NF (First Normal Form)**:
+  - Each column contains atomic (indivisible) values.
+  - No repeating groups or arrays in a single column.
+  - Every table must have a primary key.
+
+- **2NF (Second Normal Form)**:
+  - Meets 1NF requirements.
+  - **No Partial Dependency**: Every non-prime attribute must be fully functionally dependent on the *entire* candidate key (applies only to composite keys).
+
+- **3NF (Third Normal Form)**:
+  - Meets 2NF requirements.
+  - **No Transitive Dependency**: Non-prime attributes must not depend on other non-prime attributes ($X \\to Y \\implies X$ is a superkey or $Y$ is a prime attribute).
+
+- **BCNF (Boyce-Codd Normal Form)**:
+  - Stricter version of 3NF.
+  - For every functional dependency $X \\to Y$, $X$ **must** be a Super Key.`,
+    tags: ['DBMS', 'SQL', 'Normalization', 'Relational Design'],
+    isPinned: false,
+    colorTheme: 'blue',
+    created_at: '2026-10-28T11:00:00Z',
+    updated_at: '2026-10-28T11:00:00Z'
+  }
+];
+
+export const initialStudyTasks: StudyTask[] = [
+  {
+    id: 'task-1',
+    userId: 'demo-student-01',
+    title: 'Solve 5 LeetCode Two-Pointer & Binary Search Problems',
+    subject: 'Data Structures & Algos',
+    dueDate: '2026-11-04',
+    estimatedMinutes: 60,
+    priority: 'high',
+    status: 'in_progress',
+    created_at: '2026-11-01T10:00:00Z'
+  },
+  {
+    id: 'task-2',
+    userId: 'demo-student-01',
+    title: 'Review Banker\'s Algorithm & Semaphore Deadlock proofs',
+    subject: 'Operating Systems',
+    dueDate: '2026-11-05',
+    estimatedMinutes: 45,
+    priority: 'high',
+    status: 'todo',
+    created_at: '2026-11-02T08:30:00Z'
+  },
+  {
+    id: 'task-3',
+    userId: 'demo-student-01',
+    title: 'Implement JWT refresh token rotation with Supabase RLS policies',
+    subject: 'Full Stack Web Dev',
+    dueDate: '2026-11-06',
+    estimatedMinutes: 90,
+    priority: 'medium',
+    status: 'todo',
+    created_at: '2026-11-02T09:00:00Z'
+  },
+  {
+    id: 'task-4',
+    userId: 'demo-student-01',
+    title: 'Practice SQL Window Functions: ROW_NUMBER, RANK & DENSE_RANK',
+    subject: 'Database Systems (DBMS)',
+    dueDate: '2026-11-03',
+    estimatedMinutes: 30,
+    priority: 'medium',
+    status: 'completed',
+    completedAt: '2026-11-02T11:20:00Z',
+    created_at: '2026-10-31T14:00:00Z'
+  }
+];
+
+export const initialExamMilestones: ExamMilestone[] = [
+  {
+    id: 'exam-1',
+    title: 'Semester End Theory: Operating Systems & System Architecture',
+    subject: 'Operating Systems',
+    examDate: '2026-11-20',
+    targetScore: 'Grade A+ (90%+)'
+  },
+  {
+    id: 'exam-2',
+    title: 'TCS Digital / Infosys SP On-Campus Coding Assessment',
+    subject: 'Data Structures & System Design',
+    examDate: '2026-11-28',
+    targetScore: 'Clear All Test Cases'
+  },
+  {
+    id: 'exam-3',
+    title: 'Database Systems & SQL Lab Practical Examination',
+    subject: 'Database Systems',
+    examDate: '2026-12-05',
+    targetScore: '100% Query Execution'
   }
 ];

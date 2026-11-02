@@ -59,59 +59,59 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-150">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+      <div className="bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-800 relative animate-in fade-in zoom-in-95 duration-150">
         <button
           onClick={onClose}
-          className="absolute right-5 top-5 p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors cursor-pointer"
+          className="absolute right-5 top-5 p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="space-y-1 mb-5">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-50 text-teal-700 text-xs font-bold">
-            <Sparkles className="w-3 h-3" /> Community Showcase
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 text-xs font-bold">
+            <Sparkles className="w-3 h-3 text-indigo-400" /> Community Showcase
           </div>
-          <h2 className="text-xl font-extrabold text-slate-900">
+          <h2 className="text-xl font-extrabold text-white">
             Publish Your Project
           </h2>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-400">
             Showcase your working software to fellow engineering students and tech recruiters.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3.5 text-xs">
           <div>
-            <label className="block font-bold text-slate-700 mb-1">Project Title *</label>
+            <label className="block font-bold text-slate-300 mb-1">Project Title *</label>
             <input
               type="text"
               required
               placeholder="e.g. DevFlow — Developer Kanban Workspace"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-100"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-700 mb-1">One-Sentence Tagline / Summary *</label>
+            <label className="block font-bold text-slate-300 mb-1">One-Sentence Tagline / Summary *</label>
             <input
               type="text"
               required
               placeholder="e.g. Offline-first Kanban board with drag-and-drop task automation and live sync"
               value={tagline}
               onChange={(e) => setTagline(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-100"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-bold text-slate-700 mb-1">Category</label>
+              <label className="block font-bold text-slate-300 mb-1">Category</label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as any)}
-                className="w-full p-2 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 cursor-pointer"
+                className="w-full p-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-200 cursor-pointer"
               >
                 <option value="Web Development">Web Development</option>
                 <option value="AI & ML">AI & ML</option>
@@ -122,61 +122,61 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
             </div>
 
             <div>
-              <label className="block font-bold text-slate-700 mb-1">Author Name *</label>
+              <label className="block font-bold text-slate-300 mb-1">Author Name *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. Ananya Rao"
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-100"
               />
             </div>
           </div>
 
           <div>
-            <label className="block font-bold text-slate-700 mb-1">College / University</label>
+            <label className="block font-bold text-slate-300 mb-1">College / University</label>
             <input
               type="text"
               placeholder="e.g. NIT Trichy / Anna University / IIT Madras"
               value={authorCollege}
               onChange={(e) => setAuthorCollege(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-100"
             />
           </div>
 
           <div>
-            <label className="block font-bold text-slate-700 mb-1">Technologies (comma separated)</label>
+            <label className="block font-bold text-slate-300 mb-1">Technologies (comma separated)</label>
             <input
               type="text"
               placeholder="React, Next.js, TypeScript, Supabase, Tailwind"
               value={technologies}
               onChange={(e) => setTechnologies(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-100"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block font-bold text-slate-700 mb-1">GitHub Repo URL *</label>
+              <label className="block font-bold text-slate-300 mb-1">GitHub Repo URL *</label>
               <input
                 type="url"
                 required
                 placeholder="https://github.com/..."
                 value={githubUrl}
                 onChange={(e) => setGithubUrl(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-100"
               />
             </div>
 
             <div>
-              <label className="block font-bold text-slate-700 mb-1">Live Demo URL</label>
+              <label className="block font-bold text-slate-300 mb-1">Live Demo URL</label>
               <input
                 type="url"
                 placeholder="https://myproject.app"
                 value={liveDemoUrl}
                 onChange={(e) => setLiveDemoUrl(e.target.value)}
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800"
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-800 bg-slate-950 focus:outline-none focus:border-indigo-500 text-slate-100"
               />
             </div>
           </div>
@@ -185,14 +185,14 @@ export const AddProjectModal: React.FC<AddProjectModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 font-bold transition-colors cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-750 font-bold transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-colors shadow-sm cursor-pointer disabled:opacity-50"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold transition-all shadow-md cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? 'Publishing...' : 'Publish to Showcase'}
             </button>
